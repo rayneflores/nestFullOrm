@@ -16,13 +16,13 @@ export class BreedsController {
   }
 
   @Get()
-  @Auth(Role.USER)
+  @Auth([Role.USER, Role.ADMIN, Role.SUPERADMIN])
   findAll() {
     return this.breedsService.findAll();
   }
 
   @Get(':id')
-  @Auth(Role.USER)
+  @Auth([Role.USER, Role.ADMIN, Role.SUPERADMIN])
   findOne(@Param('id') id: number) {
     return this.breedsService.findOne(+id);
   }

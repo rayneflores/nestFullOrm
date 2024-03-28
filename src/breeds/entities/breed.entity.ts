@@ -20,13 +20,19 @@ export class Breed {
   @Column({ length: 500 })
   name: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({
+    select: false
+  })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({
+    select: false
+  })
   updatedAt: Date;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({
+    select: false
+  })
   deletedAt: Date;
 
   @OneToMany(() => Cat, (cat) => cat.breed)

@@ -14,7 +14,8 @@ export class BreedsService {
   ){}
 
   async create(createBreedDto: CreateBreedDto) {
-    return await this.breedRepository.save(createBreedDto);
+    const breed = await this.breedRepository.save(createBreedDto);
+    return {id: breed.id, name: breed.name}
   }
 
   async findAll() {
