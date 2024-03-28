@@ -1,3 +1,3 @@
 export const jwtConstants = {
-    secret: 'RyFSystems2024.',
+    secret: process.env.JWT_SECRET,
   };
