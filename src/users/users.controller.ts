@@ -1,11 +1,23 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Auth } from 'src/auth/decorators/auth.decorator';
-import { Role } from './../common/enums/rol.enum'
+import { Role } from './../common/enums/rol.enum';
+import { ApiBearerAuth, ApiExcludeController, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Users')
 @Controller('users')
+@ApiBearerAuth()
+@ApiExcludeController()
 @Auth(Role.SUPERADMIN)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
