@@ -25,10 +25,10 @@ export class AuthService {
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid Credentials!!!');
     }
-    const payload = { email: user.email, role: user.role};
+    const payload = { email: user.email, role: user.role };
     const token = await this.jwtService.signAsync(payload);
 
-    return {email, token};
+    return { email, token };
   }
 
   async register({ name, email, password }: RegisterDto) {
@@ -43,15 +43,22 @@ export class AuthService {
       password: await bcryptjs.hash(password, 10),
     });
 
-    return {name,email};
+    return { name, email };
   }
 
-  async profile({email, role}:{email: string, role: string}) {
-
+  async profile({ email, role }: { email: string; role: string }) {
     //if (role !== 'admin') {
-      //throw new UnauthorizedException('You are not allowed to access this resource');
+    //throw new UnauthorizedException('You are not allowed to access this resource');
     //}
 
     return await this.usersService.findOneByEmail(email);
+  }
+
+  async refreshToken(current: string): Promise<any> {
+    const accessToken = current['token'];
+    const user = await this.jwtService.decode(accessToken);
+    const payload = { email: user.email, role: user.role };
+    const token = await this.jwtService.signAsync(payload);
+    return { token };
   }
 }

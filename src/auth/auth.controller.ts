@@ -44,4 +44,10 @@ export class AuthController {
   profile(@ActiveUser() user: UserActiveInterface) {
     return this.authService.profile(user);
   }
+
+  @Post('refresh-token')
+  @ApiOperation({ description: 'Refresh User Token' })
+  refreshToken(@Body() token: string) {
+    return this.authService.refreshToken(token);
+  }
 }
